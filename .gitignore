@@ -1,0 +1,7 @@
+.project
+.vscode
+package-lock.json
+*.lock
+node_modules
+dist
+npm-debug.log

@@ -1,0 +1,17 @@
+$primary-color: white;
+$bg: black;
+body {
+  color: $primary-color;
+  background-color: $bg;
+  font-size: 36px;
+  background: url('../image/bg.jpg') no-repeat;
+  .box1{
+    background: url('../image/home-nav-item.png') no-repeat;
+  }
+}
+
+.test{
+    display: flex;
+    transition: all ease 3s;
+    color: rebeccapurple;
+}
