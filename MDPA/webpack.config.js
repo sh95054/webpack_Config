@@ -6,6 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const fs = require('fs');
 
+const browsers = [
+  'Android >= 4',
+  'iOS >= 7',
+];
+
 const common = {
   entry: {
     vendors: ['vue','vue-resource']
@@ -16,8 +21,28 @@ const common = {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use:{
+            loader: 'babel-loader',
+            options: {
+                cacheDirectory: true,
+                presets: [
+                    ['@babel/preset-env',{
+                        useBuiltIns: "usage",
+                        modules: false,
+                        targets: {browsers},
+                    }],
+                ],
+                plugins: [
+                    ["@babel/plugin-transform-runtime", {
+                        corejs: 2,
+                        helpers: true,
+                        regenerator: true,
+                        useESModules: false
+                    }]
+                ]
+            },
+        },
       },
       {
         test: /\.css$/,
@@ -35,7 +60,7 @@ const common = {
                 ident: 'postcss',
                 plugins: [
                     require("autoprefixer")({
-                      'browsers': ['> 1%', 'last 2 versions']
+                      'browsers': browsers
                     })
                 ]
             }
